@@ -1,5 +1,5 @@
-Die User-Story, bei der ein Autofahrer eine Einsicht auf die Anzahl der Parkplätze hat,
+﻿Die User-Story, bei der ein Autofahrer eine Einsicht auf die Anzahl der Parkplätze hat,
 wurde automatisch durch die Projektaufgaben implementiert (begrenzte Anzahl an Parkplätzen). Die gleiche Situation bezieht
-sich dementsprechend auch auf die Dokumentation des betreibers, welcher die Umsätze ermitteln will(Diese kann er mithilfe der
+sich dementsprechend auch auf die Dokumentation des Betreibers, welcher die Umsätze ermitteln will(Diese kann er mithilfe der
 Summe der Preise aller eingeparkten Autos ermitteln). Dadurch lag der Fokus zunächst auf die Implementierung von Parkplätzen
 für Autofahrer mit einem Handicap, gefolgt von der Möglichkeit, ein verlorenes Parkticket für einen Festpreis ersetzen zu können.
