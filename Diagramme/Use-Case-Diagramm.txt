@@ -1,0 +1,258 @@
+Use-Case-Diagramm: https://plantuml-server.kkeisuke.app/svg/ZPF1JiCm38RlUGeVuR1nHnFQTa92av10NAPfSbktZPecLU8UAEFTSRe1PLtHZdK-_xP_kyl0wBcjZLA6SWPsu7LHCcJQKyhQMHKgRHlqM4E3QOK5lV2x8OZFQ0j32bDs7bOjknnBJtuKsDUQzuzeCvrYetxZi3ZCPfFSTcKxqWKnvcHsQlkCla9XQ-IT-gaECLnY6-130Tn4CP2lNj3Unb046eF47G5f6wYK1uY51_eHN5EfRKQUoOxvnNn2wHwqJKsRaKWCHXFzdYyeQIds0WbrM9fJKslq1PaCJY713m__9hoHDqwY5FQlEgs8WNo8dLoJ_EI236LSa1NwwfeKwvXEb-3o2mA207JpP0ve0coqN552cidVRT3AZNXmuYJ8GgDJL8juSD5SgNFiNnJ8PdsXFyxzEOBUnk5UZXlWBkeTfn_RFhw1C-3RGCkMoleYSd7LazXPFrE-nfJ15KTorCevywdKKdoIF_GB.svg
+
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Autofahrer
+actor Autofahrer_mit_Handicap
+Autofahrer <|-- Autofahrer_mit_Handicap
+[Anzeigetafel]
+[Parkautomat]
+rectangle Parkhaus {
+  (Auto ausfahren)
+  (Parkplaetze einsehen) -- Anzeigetafel
+  (Behindertenplaetze einsehen) <. (Parkplaetze einsehen): include
+  Autofahrer -- (Parkgebuehren bezahlen)
+  (Bargeld zahlen) --|> (Parkgebuehren bezahlen)
+  (Verlorenes_Ticket ersetzen) --|> (Parkgebuehren bezahlen)
+  (Kostenlos parken) --|> (Parkgebuehren bezahlen)
+  note right of (Kostenlos parken)
+    z.b. als Mitarbeiter/Manager oder mit einem besonderen Ticket
+  end note
+  Autofahrer_mit_Handicap -- (Behindertenparkplatz besetzen)
+  Autofahrer -- (Auto ausfahren)
+  Autofahrer -- (Ticket entnehmen)
+  Autofahrer -- (Parkplaetze einsehen)
+  Autofahrer -- (Parkplatz besetzen)
+  (Parkgebuehren bezahlen) -- Parkautomat
+  (Ticket entnehmen) -- Parkautomat
+}
+
+@enduml
+
+Robustheitsdiagramm: https://plantuml-server.kkeisuke.app/svg/XLD9RiCm3Bph5Vo0-uAYI95JKGGea9vo2HYRbeN8L23JADpbxvKJxrRQcyWPaaEAt5I2NkhIAeMfE0-lDMVKlNV8gCbFaMDfvBZ5YxfQyFYT90j0UKe5MLk2D_Jd0kjgtrH29Nmf068nqjn2-8LpD_fwTklr9OfnF887B6pDkYeTQMlIuan6L81FBcH2ty2-JeiTLcUQEfzFZebPYAyGJB6st2gWBRDoZcBN1VYJZAPtpAcB2-WW1H9BkNG32i1GSWaiTIxWGTKgRbaU4czqCM6aZiKxEmntUxDj-5M0JjBS3mzFaRRYpFhIakVYxoPTZp7EY-z1ZDiEOvRu3Yzp7nnuqHtwex7fIlsJjgSjUXo-exyaw5yGxcRC_wFKXZWBP_WB.svg
+
+@startuml
+
+actor Kunde
+actor Manager
+actor Kunde_mit_Cap
+Kunde <|-- Kunde_mit_Cap
+
+rectangle ParkhausSystem {
+  entity KundenInfo
+  entity ParkhausInformation
+  entity Zahlungsmoeglichkeit
+
+  boundary SuchMaske
+  boundary AbonenntenMaske 
+  boundary ParkMaske
+  boundary ZahlMaske
+  boundary KundenInfoMaske
+  boundary AnzeigeTafelMaske
+
+  SuchMaske -left- Kunde
+  ParkMaske -left- Kunde
+  AbonenntenMaske -left- Kunde
+  ZahlMaske -left- Kunde
+  AnzeigeTafelMaske -right- Kunde
+  control ParkhausController
+  
+  ParkhausController .> AnzeigeTafelMaske
+  ParkhausController .up.> AbonenntenMaske
+  ParkhausController .> KundenInfoMaske
+  ParkhausController .> ParkhausInformation
+  ParkhausController .left.> KundenInfo
+  ParkhausController .down.> Zahlungsmoeglichkeit
+  ParkhausController .up.> SuchMaske
+  ParkhausController .down.> ZahlMaske
+  KundenInfoMaske -right- Manager
+  Manager -- SuchMaske
+}
+
+@enduml
+
+Use-Case-Template:  Name: Handicapplatz nutzen
+                    Akteure: Autofahrer, Autofahrer mit Handicap
+                    Vorbedingung: Autofahrer besitzt ein Handicap
+                    Standardschritte: 1.Autofahrer fährt ins Parkhaus ein
+                              2. Autofahrer sucht einen Parkplatz für Behinderte
+                              3. Autofahrer parkt auf besagtem Parkplatz
+                    Ausnahmefälle: Autofahrer besitzt kein Handicap, dann darf er nur auf normalen Plätzen parken.
+                    Nachbedingung: Autofahrer hat auf diesem Platz geparkt.
+                    Qualitätsanforderungen: Autofahrer soll mit Handicap auf besonderen Plätzen parken können.
+
+
+UML Klassendiagramm: https://plantuml-server.kkeisuke.app/svg/TLCxJyCm4DxpAwnCBP2eNIs4MgYGEY1LAc80eUYQNXehiHqvvmuj_7VifEHHmHJvlliUTtOMDO4XAyiWg0kXAZ0WMLf2NI-9ZDXPmdMgrLQSaCs21c0RC4KEjcRdWB58WKJEjgvP7VpPIHHL2NJYRAq83sW-FaVr5AenT2jgUjDbEI7UbQUSFMfT8gZWExZuBYtf37A3vk9iEXr_15LObT4x2k9ifUskH5zs6aTy5JvaLxprOT3viQ5X3n_HU4USZAexF45UEgsqG9fC_mgMkE7EdS7IPazG_MFJiLz0WSCQ6YfIc4lSMYcRV6spvrtJ_2s0CvP0pJPgJnd6bUWYF3Und5AVSThEOZ3D5MuCYjeRzVZTHUFtsqVsveDBkF-AeglPXt0uZ-Dv68MpEBu9-qV3cTyD9KAnXr5xqnUrhE5qdBKR1vibLkqJloDmEtBqJZHq5EtI36Z1PQziNERCyuMKbAnqOQKx0GdjmmGBL7ltA_m0.svg
+
+@startuml
+
+skinparam classAttributeIconSize 0
+class Parkhaus {
+  -name: String
+  -parkplatz: Integer[]
+  -parkplatzcap: Integer[]
+  +istVoll(t:Integer[]): Boolean
+}
+
+class Autofahrer {
+  -nr: Integer
+  -ankunftZeit: Double
+  -leaveTime: Double
+  +parke(t: Integer[]): Double
+  +verlasse(): Double
+  +bezahleTicket()
+}
+
+class Autofahrer_cap{
+  +parkeAufCap(t: Integer[]): Double
+}
+
+class Manager{
+  +entnehmeSumme(t: Double[]):Double
+}
+
+class Parkautomat{
+  -summe: Double
+  +merkeFahrer(t:Autofahrer)
+  +berechnePreis(t: Autofahrer, Double, Double): Double
+
+}
+
+Autofahrer <|-- Autofahrer_cap
+Autofahrer "1..1"-"0..*" Parkhaus : parkt_in >
+Autofahrer "0..*"-"1..1" Parkautomat: Ticketauf_und_entnahme >
+Parkhaus "1" o-- Parkautomat
+Manager -- Parkautomat: entnimmt_Dokumentation >
+
+@enduml  
+
+UML Sequenzdiagramm: https://plantuml-server.kkeisuke.app/svg/dL8xRiCm3Drr2bsW5yWG94Y6P2YGeNl0s7GbHA82YXhYqrUr45kDxQMZoFVXUz0k2h0axvI2HWBhVPBGWM7agxToRU2XRY5H2_pK5-3x9yGxJgCzzMY_yGiwT6NL118ERW0RIF5GtWvP8OcL8lDm87qz-8MUgGliGMmWfUQ7w8_jt6ypoMcq5D4WhN37ysjEJCt0UDTz4Vv6M7IRmsfo5MgZZo18EeBtw2PY1LcpFG6rDkV8rYWzQYZthfalr9H7O9nkC-1IH9P3pxiRkQFfFmeUTo_Wi7thaz3uZDqXjVbB_W00.svg
+
+@startuml
+actor Autofahrer_mit_cap
+boundary ParkMaske
+boundary AnzeigeTafelMaske
+control ParkhausController
+entity Parkplatz
+entity ParkhausInformation
+
+Autofahrer_mit_cap -> AnzeigeTafelMaske: Parkplatz einsehen
+Autofahrer_mit_cap -> ParkMaske: Parkplatz suchen
+AnzeigeTafelMaske -> ParkhausController: Parkplatz einsehen
+ParkhausController -> ParkhausInformation: Daten sammeln
+ParkhausInformation -> ParkhausController: Handicapplaetze anzeigen
+ParkhausController -> AnzeigeTafelMaske: Anzahl der Plaetze
+AnzeigeTafelMaske -> Autofahrer_mit_cap: Anzahl anzeigen
+
+Autofahrer_mit_cap -> ParkMaske: Parkplatz suchen
+ParkMaske -> Parkplatz: Parkplatz einnehmen
+@enduml
+
+UML Zustandsdiagramm: https://plantuml-server.kkeisuke.app/svg/RP5DRuCm38Rl-HK-JqAxSwZAj0zDlVIm4zCKkM0W0fmfSLQjltu6IjTgkqIE_VZrrpOA1adZO8mu6GYiBPFwk8wrmpRWEC8UGzzXYjcRgteIQytxtGTasGPUg0wfwiMi1cIR9ySj1N9L9v23_cOxSNk1SY2My0tt44acei4kI2p9YKrSsvq-nA_SU7CjDXLye1DsWoeqE0mHYeDdOfPhxbVzHAwb8eaVKHvHY05kmTglr5vTiU3_mbhFVuhpN4uW_scfL80udq6TqkgYMZeYQPjcYTrslYmH3ilVhEbpiICwUVQXNAJC9MUTw9pR90eHlYWC6AEsTERcEdeQOxR4jTxq1m00.svg
+
+
+    @startuml
+
+    title __Zustandsdiagramm Parkhaus-Ticket__
+    [*] --> Gedruckt
+    Gedruckt ->Eingereicht : Einreichung
+    Gedruckt: entry / set EinfahrtsZeit_und_KundenInfo
+    Eingereicht --> Bezahlt: falls Abonennt
+    Eingereicht: entry / zeigeAutomatDaten  
+    Eingereicht: do / zeigePreisAn
+    Eingereicht: do / zahloptionZeigen
+    Eingereicht --> Zahlen: zahlung_ausgewaehlt
+    Zahlen --> Bezahlt: Ticket bezahlt
+    Zahlen: do / waitForZahlung
+    Bezahlt: entry / Ticket fuers verlassen
+    Bezahlt --> [*]
+
+    @enduml
+
+UML Aktivitätsdiagramm: https://plantuml-server.kkeisuke.app/svg/VP6xRiCm34LtVGM1BFOlE4EJe4iG5EXGeAD1ExIbHgPTYMg1m1zVocdIPiccnxtdyh69Wa7Iu8qH9vxWcJfCNg2kjqb6S0EyOZXPJ14cFH3NjPbVaB6dC9l5RQei7L3WD7Bd-XGS1UArgRArfoQHrJjq53MXpp_pQilYFXEzMoSq7p36x57YlDgHw_KfyP5cK-qv_bL0ZZkquJ6XUdFjYGJKeDaNxJqpy-GY8XOcEsHLe8bGRdRDYYqoBu1_UDT1iOy22mom6RD4daeGgpqM7rWQWEemHY7sutLgQqC-4XIis4LmFvf6sQrTieYFhlij1hwjqvqKr_awXXrnadFYldpKLaDdjFwsWsLuNnIyjf4VTM_ZP3OQfPl_0G00.svg
+
+@startuml
+
+  title Default __Auto im Parkhaus parken__
+  |Manager|
+  start
+  :Automat konfigurieren;
+  :Parkgebuehren festlegen;
+  |#AntiqueWhite|Kassierer|
+  |#Beige|Kunde|
+  :Ins Parkhaus einfahren;
+  |#AntiqueWhite|Kassierer|
+  :Ticket ausgeben;
+  |#Beige|Kunde|
+  :Parkticket entnehmen;
+  repeat
+  :Ticket einscannen;
+  |Kassierer|
+  if (Ist Kunde abonnent?) then (ja)
+    :Kostenlos parken;
+  else (nein)
+    :Parkgebuehren berechnen;
+  endif
+  repeat while (Automat in Benutzung)
+  |#Beige|Kunde|
+  :Parkticket bezahlen;
+  :Parkhaus verlassen;
+
+  stop
+  @enduml
+
+UML Verteilungsdiagramm: https://plantuml-server.kkeisuke.app/svg/dLAnRi8m4Dtz5JV2aCmTeK4C7Lgae2w8uPfSYS5Ea7q6AiI_ruOO4gfMRICviT-xTtvtkP5bDEoq4g9kIe9CIQePZY00pi2ZQVQMZ4Vy8y9hYyK6LmGpD9iAdPs5m_5C0Go6y9I_FBUdi8LX0eiOk-mIII1Km-hZ0fz4M2SXV98iVmMqa4qljd8oks0Ykfetka1-QA-DZafaZ4RQps9FR-b1gtZnGjOb7TArtLwH2Uacv5V4wHftkEndYCbpHfQMPM6lnNfnXWQonjLC9kfy0RzHZjsxxtI5Ycs9hYk7x-GTTUwqffaXQUzrFyh6lekU_BjmWanpgQalElspH_ul-_wAREfd8BaBYE3N_aIcM_irkbTOH6-kRnC8YP6hYfD162unehhqq_y9.svg
+
+@startuml
+
+node Client { 
+  node Browser {    
+    package ParkhausPage {
+      () JSON
+      JSON )- [Parkhaus]
+      JSON -- [Plotly]
+    }
+  }
+}
+
+() CSV as CF
+node Server {
+  node Tomcat8 {
+    package data{
+      
+      [web.xml]
+      [index.jsp]
+      [DemoServlet.java]
+      
+      package Statistics {
+        [Car Counter]
+      }
+
+      package Statistics {
+        [Aufenthaltsdauer]
+      }
+       package Statistics{
+        [SummePreis]
+      }
+      package Statistics{
+        [AveragePreis]
+      }
+      package Statistics{
+        [DateTime]
+      }
+    }
+      package Statistics {
+        [Car Counter]
+     }
+}  
+
+CF --- [Car Counter]
+CF --- [Aufenthaltsdauer]
+CF --- [SummePreis]
+CF --- [AveragePreis]
+CF --- [DateTime]
+[Parkhaus] -right-( CF
+
+@enduml
