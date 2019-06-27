@@ -3,7 +3,10 @@
 Die Umsetzung der User-Stories, das Bezahlen eines verlorenen Tickets und als Abonnent kostenlos zu
 parken, war bereits beim Aufkommen der ersten Ansätze schwierig, zu gestalten. Es fehlte zu viel Zeit, um beide 
 Ideen zu verwirklichen, wodurch lediglich die Möglichkeit implementiert wurde, für Autofahrer mit Handicap parken zu 
-dürfen. Ansonsten gab es keine Konflikte bezüglich Ideen oder Ansätzen innerhalb der Gruppe. 
+dürfen. Ansonsten gab es keine Konflikte bezüglich Ideen oder Ansätzen innerhalb der Gruppe. Außerdem hat sich der 
+Fokus zum Ende des Projekts auf die korrekt und optimale Verwendung der 7.0.0 ccm Version gerichtet, da diese einige
+Features hat, die genau unseren anfänglichen Vorstellungen entsprechen.
+ 
 
 
 Resümee und Fazit: Insgesamt war das Projekt eine neue Erfahrung für alle Teammitglieder, innerhalb einer knappen Zeitgrenze ein größeres Projekt zu entwickeln. Es wurden zwar leider weniger Ziele erreicht als geplant, da die kurze Frist
