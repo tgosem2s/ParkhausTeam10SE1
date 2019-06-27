@@ -1,6 +1,6 @@
-Zielkonflikte: 
+﻿Zielkonflikte: 
 
-Die Umsetzung der User-Stories, das Bezahlen eines verlorenen Tickets und als Abonennt kostenlos zu
+Die Umsetzung der User-Stories, das Bezahlen eines verlorenen Tickets und als Abonnent kostenlos zu
 parken, war bereits beim Aufkommen der ersten Ansätze schwierig zu gestalten. Es fehlte zu viel Zeit, um beide 
 Ideen zu verwirklichen, wodurch lediglich die Möglichkeit implementiert wurde,für Autofahrer mit Handicap parken zu 
 dürfen. Ansonsten gab es keine Konflikte bezüglich Ideen oder Ansätzen innerhalb der Gruppe. 
